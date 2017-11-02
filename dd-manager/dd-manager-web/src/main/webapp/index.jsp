@@ -3,6 +3,6 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <body>
-<h2>Hello World!  维吾尔文你好哈</h2>
+<h2>Hello World! 维吾尔文你好哈</h2>
 </body>
 </html>
