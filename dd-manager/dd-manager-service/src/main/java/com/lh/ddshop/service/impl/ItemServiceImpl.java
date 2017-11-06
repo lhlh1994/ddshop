@@ -6,6 +6,8 @@ import com.lh.ddshop.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ItemServiceImpl implements ItemService{
 
@@ -15,5 +17,10 @@ public class ItemServiceImpl implements ItemService{
     @Override
     public TbItem getById(Long itemId) {
         return itemMapper.selectByPrimaryKey(itemId);
+    }
+
+    @Override
+    public List<TbItem> findAll() {
+        return itemMapper.selectAll();
     }
 }

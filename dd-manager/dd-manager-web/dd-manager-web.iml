@@ -31,6 +31,8 @@
     </content>
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: commons-fileupload:commons-fileupload:1.3.1" level="project" />
+    <orderEntry type="library" name="Maven: commons-io:commons-io:2.4" level="project" />
     <orderEntry type="module" module-name="dd-manager-service" />
     <orderEntry type="module" module-name="dd-manager-dao" />
     <orderEntry type="module" module-name="dd-manager-pojo" />

@@ -12,6 +12,10 @@
     <url>http://maven.apache.org</url>
     <dependencies>
         <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.lh.ddshop</groupId>
             <artifactId>dd-manager-service</artifactId>
             <version>1.0-SNAPSHOT</version>
