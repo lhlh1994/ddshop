@@ -4,6 +4,7 @@ import com.lh.ddshop.pojo.po.TbItem;
 import com.lh.ddshop.pojo.po.TbItemExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.ui.Model;
 
 public interface TbItemMapper {
     int countByExample(TbItemExample example);
@@ -28,5 +29,4 @@ public interface TbItemMapper {
 
     int updateByPrimaryKey(TbItem record);
 
-    List<TbItem> selectAll();
 }

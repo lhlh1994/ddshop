@@ -1,6 +1,9 @@
 package com.lh.ddshop.web;
 
+import com.lh.ddshop.common.dto.Page;
+import com.lh.ddshop.common.dto.Result;
 import com.lh.ddshop.pojo.po.TbItem;
+import com.lh.ddshop.pojo.vo.TbItemCustom;
 import com.lh.ddshop.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -9,9 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
 
 @Controller
 @Scope("prototype")
@@ -28,17 +29,19 @@ public class ItemAction {
         return item;
     }
 
-    @RequestMapping(value = "/{page}")
-    public ModelAndView page(@PathVariable("page") String page, ModelAndView modelAndView) {
 
-        if ("item-list".equals(page)) {
-            List<TbItem> list = itemService.findAll();
-            System.out.println(list);
-            modelAndView.addObject("list", list);
-            modelAndView.setViewName(page);
+    @ResponseBody
+    @RequestMapping("/items")
+    public Result<TbItemCustom> listItemsByPage(Page page){
+
+        Result<TbItemCustom> list=null;
+        try {
+            list = itemService.listItemsByPage(page);
+        }catch (Exception e){
+
+            e.printStackTrace();
         }
-
-        return modelAndView;
+        return list;
     }
 
 

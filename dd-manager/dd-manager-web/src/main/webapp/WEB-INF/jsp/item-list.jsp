@@ -3,25 +3,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-<table id="dg" class="easyui-datagrid"
-       data-options="fitColumns:true,singleSelect:true,pagination:true,rownumbers: true">
-
-    <thead>
-    <tr>
-        <th data-options="field:'code',width:100">标题</th>
-        <th data-options="field:'name',width:100">名称</th>
-        <th data-options="field:'price',width:100,align:'right'">价格</th>
-    </tr>
-    </thead>
-    <tbody>
-            <c:forEach items="${list}" var="item">
-                <tr>
-                <td>${item.title}</td>
-                <td>${item.num}</td>
-                <td>${item.price}</td>
-                </tr>
-            </c:forEach>
-    </tbody>
+<table id="dg"></table>
 </table>
 
-
+<script>
+    $('#dg').datagrid({
+        url:'items',//请求远程url
+        striped:true,//斑马线效果,隔行变色
+        rownumbers:true,//显示行号
+        pagination:true,//显示分页工具
+        fit:true,//使得数据表格自适应填充父容器
+        pageSize: 10,
+        pageList: [10,50,100],
+        columns:[[
+            {field:'ck',checkbox:true},//显示复选框
+            {field:'title',title:'标题',width:100},
+            {field:'price',title:'价格',width:100},
+            {field:'catName',title:'商品类别',width:100},
+            {field:'sellPoint',title:'卖点',width:100}
+        ]]
+    });
+</script>
