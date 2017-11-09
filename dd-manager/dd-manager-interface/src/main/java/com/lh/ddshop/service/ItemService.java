@@ -12,4 +12,10 @@ public interface ItemService {
     TbItem getById(Long itemId);
 
     Result<TbItemCustom> listItemsByPage(Page page);
+
+    int updateItemsByIds(List<Long> ids);
+
+    int upItemsByIds(List<Long> ids);
+
+    int downItemsByIds(List<Long> ids);
 }
