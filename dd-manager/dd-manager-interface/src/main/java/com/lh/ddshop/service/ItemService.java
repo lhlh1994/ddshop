@@ -1,9 +1,11 @@
 package com.lh.ddshop.service;
 
+import com.lh.ddshop.common.dto.Order;
 import com.lh.ddshop.common.dto.Page;
 import com.lh.ddshop.common.dto.Result;
 import com.lh.ddshop.pojo.po.TbItem;
 import com.lh.ddshop.pojo.vo.TbItemCustom;
+import com.lh.ddshop.pojo.vo.TbItemQuery;
 import org.springframework.ui.Model;
 
 import java.util.List;
@@ -11,7 +13,7 @@ import java.util.List;
 public interface ItemService {
     TbItem getById(Long itemId);
 
-    Result<TbItemCustom> listItemsByPage(Page page);
+    Result<TbItemCustom> listItemsByPage(Page page, Order order, TbItemQuery query);
 
     int updateItemsByIds(List<Long> ids);
 
