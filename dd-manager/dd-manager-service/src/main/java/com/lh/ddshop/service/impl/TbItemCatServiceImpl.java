@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 @Service
 public class TbItemCatServiceImpl implements TbItemCatService{
@@ -30,6 +31,7 @@ public class TbItemCatServiceImpl implements TbItemCatService{
             //执行查询
             List<TbItemCat> tbItemCatList = tbItemCatMapper.selectByExample(example);
             //遍历查询出来的列表,生成新的列表
+            treeNodeList=new ArrayList<>();
             for(int i=0;i<tbItemCatList.size();i++){
                 TbItemCat itemCat = tbItemCatList.get(i);
                 TreeNode treeNode=new TreeNode();

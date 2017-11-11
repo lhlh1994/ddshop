@@ -22,7 +22,7 @@ public class ItemCatAction {
     private TbItemCatService itemCatService;
 
     @ResponseBody
-    @RequestMapping
+    @RequestMapping("/itemCats")
     private List<TreeNode> listItemCatsByPid(@RequestParam("parentId") Long parentId){
         List<TreeNode> treeNodeList =null;
         try{

@@ -78,8 +78,24 @@
     $("#cid").combotree({
         url:'itemCats?parentId=0',
         required:true,
+        onBeforeExpand: function (node) {
+            //获取当前被点击的tree
+            var $currentTree = $('#cid').combotree('tree');
+            //调用easyui tree组件的options方法
+            var option = $currentTree.tree('options');
+            //修改option的url属性
+            option.url = 'itemCats?parentId=' + node.id;
+        },
+        onBeforeSelect: function (node) {
+            //判断选中节点是否为叶子节点，如果是，返回true
+            var isLeaf = $('#cid').tree('isLeaf', node.target);
+            //如果后台管理员选中的不是叶子节点的话，给出警告框
+            if (!isLeaf) {
+                $.messager.alert('警告', '请选中最终的类别！', 'warning');
+                return false;
+            }
 
-
+        }
 
     });
 
