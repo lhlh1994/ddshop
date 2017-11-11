@@ -87,6 +87,7 @@
             option.url = 'itemCats?parentId=' + node.id;
         },
         onBeforeSelect: function (node) {
+
             //判断选中节点是否为叶子节点，如果是，返回true
             var isLeaf = $('#cid').tree('isLeaf', node.target);
             //如果后台管理员选中的不是叶子节点的话，给出警告框
