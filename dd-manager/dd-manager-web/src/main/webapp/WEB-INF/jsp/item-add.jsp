@@ -91,7 +91,6 @@
             var isLeaf = $('#cid').tree('isLeaf', node.target);
             //如果后台管理员选中的不是叶子节点的话，给出警告框
             if (!isLeaf) {
-
                 $.messager.alert('警告', '请选中最终的类别！', 'warning');
                 return false;
             }
