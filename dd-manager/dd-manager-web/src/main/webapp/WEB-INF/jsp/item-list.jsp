@@ -35,6 +35,7 @@
         $('#dg').datagrid('load',{
             title:$('#title').val(),
             status:$('#status').combobox('getValue')
+
         });
     }
 
@@ -43,7 +44,30 @@
     }
 
     function edit() {
-        console.log('edit');
+        var selections = $('#dg').datagrid('getSelections');
+        //console.log(selections)
+        if(selections.length==0){
+            $.messager.alert('提示','请选择需要编辑的商品!');
+            return;
+        }
+        if(selections.length!=1){
+            $.messager.alert('提示','亲,每次只能编辑一件商品信息!');
+            return;
+        }
+        $.messager.confirm('确认','您确定要编辑该商品吗?',function(r){
+            if(r){
+                var id=selections[0].id;
+                alert(id);
+                $.get(
+                    'item/'+id,
+                    function(data){
+                        ddshop.addTabs('编辑商品','item-update');
+                    },
+                    'json'
+                );
+            }
+
+        });
     }
 
     function remove() {
@@ -67,7 +91,7 @@
                     {'ids[]':ids},
                     //callback:后台处理成功后的回调函数,相当于success,function类型
                     function(data){
-                        alert(data+'件商品删除成功');
+                        $.messager.alert('提示',data+'件商品删除成功!');
                         $('#dg').datagrid('reload');
                     },
                     //datatype:返回的数据类型,String类型
@@ -91,7 +115,7 @@
                 'items/down',
                 {'ids[]':ids},
                 function(data){
-                    alert(data+'件商品下架成功')
+                    $.messager.alert('提示',data+'件商品下架成功!');
                     $('#dg').datagrid('reload');
                 },
                 'json'
@@ -116,7 +140,7 @@
                 'items/up',
                 {'ids[]': ids},
                 function (data) {
-                    alert(data + '件商品上架成功')
+                    $.messager.alert('提示',data+'件商品上架成功!');
                     $('#dg').datagrid('reload');
                 },
                 'json'

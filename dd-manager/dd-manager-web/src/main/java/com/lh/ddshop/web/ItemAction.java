@@ -34,19 +34,18 @@ public class ItemAction {
         return item;
     }
 
-    //adas
     @ResponseBody
     @RequestMapping("/items")
     public Result<TbItemCustom> listItemsByPage(Page page, Order order, TbItemQuery query) {
 
-        Result<TbItemCustom> list = null;
+        Result<TbItemCustom> result = null;
         try {
-            list = itemService.listItemsByPage(page, order,query);
+            result = itemService.listItemsByPage(page, order,query);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             e.printStackTrace();
         }
-        return list;
+        return result;
     }
 
     //批量删除
@@ -70,5 +69,31 @@ public class ItemAction {
         return itemService.downItemsByIds(ids);
     }
 
+    //添加商品
+    @ResponseBody
+    @RequestMapping("/item")
+    public  int saveItem(TbItem tbItem,String content){
+        int i=0;
+        try{
+            i = itemService.saveItem(tbItem,content);
+        }catch (Exception e){
+            logger.error(e.getMessage(),e);
+            e.printStackTrace();
+        }
+        return i;
+    }
+
+    //编辑商品
+    @RequestMapping("/updateItem")
+    public  int updateItem(TbItem tbItem,String content){
+        int i=0;
+        try{
+            i = itemService.saveItem(tbItem,content);
+        }catch (Exception e){
+            logger.error(e.getMessage(),e);
+            e.printStackTrace();
+        }
+        return i;
+    }
 
 }

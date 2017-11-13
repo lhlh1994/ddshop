@@ -75,6 +75,39 @@
 </div>
 
 <script>
+
+    //表单重置按钮
+    function clearForm(){
+        $("#itemAddForm").form("reset");
+        ue.setContent('商品描述');
+    }
+
+
+    //提交表单
+    function submitForm(){
+        $("#itemAddForm").form("submit",{
+           url:'item',
+            //表单提交之前做校验
+           onSubmit:function () {
+               $("#price").val($("#priceView").val()*100);
+               return $(this).form("validate");
+           },
+
+           //表单提交成功之后的回调函数
+           success:function (data) {
+               if(data>0){
+                   $.messager.alert('温馨提示','添加商品成功');
+                   ddshop.addTabs('查询商品','item-list');
+                   $("#tab").tabs('close','新增商品');
+               }
+
+           }
+        });
+    }
+
+    var ue = UE.getEditor('container');
+
+
     $("#cid").combotree({
         url:'itemCats?parentId=0',
         required:true,
@@ -87,7 +120,6 @@
             option.url = 'itemCats?parentId=' + node.id;
         },
         onBeforeSelect: function (node) {
-
             //判断选中节点是否为叶子节点，如果是，返回true
             var isLeaf = $('#cid').tree('isLeaf', node.target);
             //如果后台管理员选中的不是叶子节点的话，给出警告框
