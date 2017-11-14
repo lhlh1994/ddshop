@@ -105,11 +105,8 @@
         });
     }
 
-    if (typeof ue != 'undefined') {
-        ue.destroy();
-    }
-
     var ue = UE.getEditor('container');
+
 
     $("#cid").combotree({
         url:'itemCats?parentId=0',
