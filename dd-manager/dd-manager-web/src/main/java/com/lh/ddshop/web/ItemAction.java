@@ -37,7 +37,6 @@ public class ItemAction {
     @ResponseBody
     @RequestMapping("/items")
     public Result<TbItemCustom> listItemsByPage(Page page, Order order, TbItemQuery query) {
-
         Result<TbItemCustom> result = null;
         try {
             result = itemService.listItemsByPage(page, order,query);
