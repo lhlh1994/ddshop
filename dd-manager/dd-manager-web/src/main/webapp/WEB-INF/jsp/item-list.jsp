@@ -57,14 +57,7 @@
         $.messager.confirm('确认','您确定要编辑该商品吗?',function(r){
             if(r){
                 var id=selections[0].id;
-                alert(id);
-                $.get(
-                    'item/'+id,
-                    function(data){
-                        ddshop.addTabs('编辑商品','item-update');
-                    },
-                    'json'
-                );
+                ddshop.addTabs('编辑商品','itemUpdate/'+id);
             }
 
         });

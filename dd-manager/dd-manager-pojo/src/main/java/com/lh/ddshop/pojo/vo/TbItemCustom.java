@@ -34,4 +34,14 @@ public class TbItemCustom extends TbItem{
     public void setPriceView(String priceView) {
         this.priceView = priceView;
     }
+
+
+    @Override
+    public String toString() {
+        return "TbItemCustom{" +
+                "catName='" + catName + '\'' +
+                ", statusName='" + statusName + '\'' +
+                ", priceView='" + priceView + '\'' +
+                '}';
+    }
 }

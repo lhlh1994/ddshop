@@ -15,4 +15,6 @@ public interface TbItemCustomMapper {
     int countItems(Map<String,Object> map);
 
     List<TbItemCustom> listItemsByPage(Map<String,Object> map);
+
+    TbItemCustom selectById(Long id);
 }

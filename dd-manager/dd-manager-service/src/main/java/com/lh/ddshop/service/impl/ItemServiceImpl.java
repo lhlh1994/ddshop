@@ -6,9 +6,11 @@ import com.lh.ddshop.common.dto.Result;
 import com.lh.ddshop.dao.TbItemCustomMapper;
 import com.lh.ddshop.dao.TbItemDescMapper;
 import com.lh.ddshop.dao.TbItemMapper;
+import com.lh.ddshop.dao.TbItemParamItemMapper;
 import com.lh.ddshop.pojo.po.TbItem;
 import com.lh.ddshop.pojo.po.TbItemDesc;
 import com.lh.ddshop.pojo.po.TbItemExample;
+import com.lh.ddshop.pojo.po.TbItemParamItem;
 import com.lh.ddshop.pojo.vo.TbItemCustom;
 import com.lh.ddshop.pojo.vo.TbItemQuery;
 import com.lh.ddshop.service.ItemService;
@@ -34,7 +36,8 @@ public class ItemServiceImpl implements ItemService{
     @Autowired
     private TbItemDescMapper tbItemDescDao;
 
-
+    @Autowired
+    private TbItemParamItemMapper tbItemParamItemDao;
 
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -101,11 +104,11 @@ public class ItemServiceImpl implements ItemService{
     //添加事物
     @Transactional
     @Override
-    public int saveItem(TbItem tbItem, String content) {
+    public int saveItem(TbItem tbItem, String content,String paramData) {
         int i=0;
         try{
             Date date = new Date();
-            //这个方法要处理两张表
+            //这个方法要处理三张表
             //处理tb_item
             long itemId = IDUtils.getItemId();
             tbItem.setId(itemId);
@@ -121,10 +124,27 @@ public class ItemServiceImpl implements ItemService{
             itemDesc.setCreated(date);
             itemDesc.setUpdated(date);
             i += tbItemDescDao.insert(itemDesc);
+
+            //处理tb_item_param_item
+            TbItemParamItem tbItemParamItem = new TbItemParamItem();
+            tbItemParamItem.setItemId(itemId);
+            tbItemParamItem.setParamData(paramData);
+            tbItemParamItem.setCreated(date);
+            tbItemParamItem.setUpdated(date);
+            i += tbItemParamItemDao.insert(tbItemParamItem);
+
         }catch (Exception e){
             logger.error(e.getMessage(),e);
             e.printStackTrace();
         }
         return i;
+    }
+
+    @Override
+    public TbItemCustom getItemById(Long id) {
+
+        TbItemCustom tbItemCustom= itemCustomDao.selectById(id);
+
+        return tbItemCustom;
     }
 }

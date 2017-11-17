@@ -76,6 +76,17 @@
 
 <script>
 
+
+
+
+
+
+
+
+
+
+
+
     //表单重置按钮
     function clearForm(){
         $("#itemAddForm").form("reset");
@@ -86,10 +97,40 @@
     //提交表单
     function submitForm(){
         $("#itemAddForm").form("submit",{
-           url:'item',
+           url:'item/add',
             //表单提交之前做校验
            onSubmit:function () {
                $("#price").val($("#priceView").val()*100);
+
+               //将表单上的规格参数获取
+               var paramsJson = [];
+               var $liList = $('#itemAddForm .paramsShow li');
+               $liList.each(function (i, e) {
+                   $group = $(e).find('.group');
+                   var groupName = $group.text();
+
+                   var params = [];
+                   var $trParams = $(e).find('tr').has('td.param');
+                   $trParams.each(function (_i, _e) {
+                       var $oneDataTr = $(_e);
+                       var $keyTd = $oneDataTr.find('.param');
+                       var $valueInput = $keyTd.next('td').find('input');
+                       var key = $keyTd.text();
+                       var value = $valueInput.val();
+
+                       var _o = {
+                           k: key,
+                           v: value
+                       };
+                       params.push(_o);
+                   });
+                   var o = {};
+                   o.group = groupName;
+                   o.params = params;
+                   paramsJson.push(o);
+               });
+               paramsJson = JSON.stringify(paramsJson);
+               $('#paramData').val(paramsJson);
                return $(this).form("validate");
            },
 
@@ -129,6 +170,49 @@
             if (!isLeaf) {
                 $.messager.alert('警告', '请选中最终的类别！', 'warning');
                 return false;
+            }else{
+
+                $.get(
+                    //url
+                    'itemParam/query/'+node.id,
+                    //success
+                    function (data) {
+                        var $outerTd = $('#itemAddForm .paramsShow td').eq(1);
+                        var $ul = $('<ul>');
+                        $outerTd.empty().append($ul);
+                        if(data){
+                            var paramData = data.paramData;
+                            paramData = JSON.parse(paramData);
+                            //遍历分组
+                            $.each(paramData, function (i, e) {
+                                var groupName = e.group;
+                                var $li = $('<li>');
+                                var $table = $('<table>');
+                                var $tr = $('<tr>');
+                                var $td = $('<td colspan="2" class="group">' + groupName + '</td>');
+
+                                $ul.append($li);
+                                $li.append($table);
+                                $table.append($tr);
+                                $tr.append($td);
+                                //遍历分组项
+                                if (e.params) {
+                                    $.each(e.params, function (_i, paramName) {
+                                        var _$tr = $('<tr><td class="param">' + paramName + '</td><td><input></td></tr>');
+                                        $table.append(_$tr);
+                                    });
+                                }
+                            });
+
+                            $("#itemAddForm .paramsShow").show();
+                        } else {
+
+                            $("#itemAddForm .paramsShow").hide();
+                            $("#itemAddForm .paramsShow td").eq(1).empty();//第二个td
+                        }
+
+                    }
+                )
             }
 
         }

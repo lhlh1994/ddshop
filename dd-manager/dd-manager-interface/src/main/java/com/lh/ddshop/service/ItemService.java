@@ -21,5 +21,7 @@ public interface ItemService {
 
     int downItemsByIds(List<Long> ids);
 
-    int saveItem(TbItem tbItem, String content);
+    int saveItem(TbItem tbItem, String content,String paramData);
+
+    TbItemCustom getItemById(Long id);
 }

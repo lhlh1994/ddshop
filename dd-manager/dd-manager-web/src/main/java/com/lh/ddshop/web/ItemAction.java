@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -71,11 +72,11 @@ public class ItemAction {
 
     //添加商品
     @ResponseBody
-    @RequestMapping("/item")
-    public  int saveItem(TbItem tbItem,String content){
+    @RequestMapping("/item/add")
+    public  int saveItem(TbItem tbItem,String content,String paramData){
         int i=0;
         try{
-            i = itemService.saveItem(tbItem,content);
+            i = itemService.saveItem(tbItem,content,paramData);
         }catch (Exception e){
             logger.error(e.getMessage(),e);
             e.printStackTrace();
@@ -84,16 +85,18 @@ public class ItemAction {
     }
 
     //编辑商品
-    @RequestMapping("/updateItem")
-    public  int updateItem(TbItem tbItem,String content){
-        int i=0;
+    @RequestMapping("/itemUpdate/{id}")
+    public String getItemById(@PathVariable("id") Long id, Model model){
+        TbItemCustom tbItemCustom = new TbItemCustom();
         try{
-            i = itemService.saveItem(tbItem,content);
+            tbItemCustom=itemService.getItemById(id);
         }catch (Exception e){
             logger.error(e.getMessage(),e);
             e.printStackTrace();
         }
-        return i;
+        System.out.println(tbItemCustom);
+        model.addAttribute("tbItemCustom", tbItemCustom);
+        return "item-update";
     }
 
 }
